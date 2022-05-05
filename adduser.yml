@@ -8,5 +8,6 @@
   tasks:
   - name: Add a user
     user:
-      name: scooper
+      name: "{{ morpheus['customOptions']['user_name']}}"
+      password: "[[ lookup('cypher','secret=password/userpassword') }}"
       state: present
