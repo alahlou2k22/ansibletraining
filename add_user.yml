@@ -12,7 +12,7 @@
   - name: Add a user
     user:
       name: "{{ morpheus['customOptions']['username'] }}"
-      password: "{{ userpass }}"
+      password: "1234abcd"
       state: present
       
   - debug:
