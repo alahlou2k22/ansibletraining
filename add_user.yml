@@ -9,7 +9,7 @@
   - name: Add a user
     user:
       name: "{{ morpheus['customOptions']['username'] }}"
-      password: "{{ 'password' | password_hash('sha512', '1234abcd') }}"
+      password: $6$RcEibRA4iVCZqz10$o1feyaPj6A3sQ0Lz1vQryrW42Uj9ryhd07NLTHaY.PFHKqe8QLZU5I3rlIfEnsprPDEp19qPXeOslF3di44Vq1
       state: present
       
   - debug:
