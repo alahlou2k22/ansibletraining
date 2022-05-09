@@ -8,4 +8,3 @@
       name: "{{ morpheus['customOptions']['username'] }}"
       password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
       state: present
-    when: ansible_os_family == "Windows"
