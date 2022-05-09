@@ -1,0 +1,25 @@
+---
+- name: Add a user on Linux instances
+  hosts: all
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Add a user
+    user:
+      name: "{{ morpheus['customOptions']['username'] }}"
+      password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
+      state: present
+      when: ansible_os_family == 'Debian'
+      
+- name: Add a user on Windows instances
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Add User
+    win_user:
+      name: "{{ morpheus['customOptions']['username'] }}"
+      password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
+      state: present
+      when: ansible_os_family == 'Windows'
