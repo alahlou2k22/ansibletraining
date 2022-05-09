@@ -1,5 +1,5 @@
 ---
-- name: Add a user on Linux instances
+- name: Add a user on Ubuntu or CentOS instances
   hosts: all
   gather_facts: yes
   become: yes
@@ -12,3 +12,14 @@
       password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
       state: present
     when: (ansible_distribution == "Ubuntu") or (ansible_distribution == "CentOS")
+
+- name: Add a user on Windows instances
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Add User
+    win_user:
+      name: "{{ morpheus['customOptions']['username'] }}"
+      password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
+      state: present
+    when: ansible_distribution == "Windows"
