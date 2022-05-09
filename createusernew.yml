@@ -13,13 +13,13 @@
       state: present
     when: (ansible_distribution == "Ubuntu") or (ansible_distribution == "CentOS")
 
-- name: Add a user on Windows instances
+- name: Add a user
   hosts: all
-  gather_facts: false
+  gather_facts: yes
   tasks:
   - name: Add User
     win_user:
       name: "{{ morpheus['customOptions']['username'] }}"
       password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
       state: present
-    when: ansible_distribution == "Windows"
+    when: '"Windows" in ansible_distribution'
