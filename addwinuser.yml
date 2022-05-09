@@ -8,4 +8,4 @@
       name: "{{ morpheus['customOptions']['username'] }}"
       password: "{{ lookup('cypher','secret=secret/userpass') | password_hash('sha512') }}"
       state: present
-    when: "Windows" in ansible_distribution
+    when: '"Windows" in ansible_distribution'
