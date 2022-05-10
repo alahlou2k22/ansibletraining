@@ -21,13 +21,13 @@
 # Create a group for Zookeeper
 - name: Add zookeeper group
   group:
-    name: zookeeper
+    name: "{{morpheus['customOptions']['fzookeeperGroup']}}"
     state: present
 
 # Create a user for Zookeeper
 - name: Add zookeeper user
   user:
-    name: "{{morpheus['customOptions']['fzookeeperuser']}}"
+    name: "{{morpheus['customOptions']['fzookeeperUser']}}"
     group: zookeeper
     home: /var/lib/zookeeper
     state: present
@@ -37,7 +37,7 @@
   file:
     path: /data/zookeeper
     state: directory
-    owner: "{{morpheus['customOptions']['fzookeeperuser']}}"
+    owner: "{{morpheus['customOptions']['fzookeeperUser']}}"
     group: zookeeper
 
 # Download and extract Zookeeper binaries
@@ -74,8 +74,8 @@
     path: /opt/zookeeper
     state: directory
     recurse: yes
-    owner: "{{morpheus['customOptions']['fzookeeperuser']}}"
-    group: zookeeper
+    owner: "{{morpheus['customOptions']['fzookeeperUser']}}"
+    group: "{{morpheus['customOptions']['fzookeeperGroup']}}"
 
 - name: add systemctl file
   template: src=zookeeper.service.j2 dest=/etc/systemd/system/zookeeper.service mode=0744
