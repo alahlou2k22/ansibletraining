@@ -18,13 +18,13 @@
     - openjdk-8-jre-headless
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-# Create a group for Zookeeper
+# Create a group for Zookeeper based on Morpheus input
 - name: Add zookeeper group
   group:
     name: "{{morpheus['customOptions']['fzookeeperGroup']}}"
     state: present
 
-# Create a user for Zookeeper
+# Create a user for Zookeeper based on Morpheus input
 - name: Add zookeeper user
   user:
     name: "{{morpheus['customOptions']['fzookeeperUser']}}"
@@ -50,10 +50,12 @@
 - name: rename zookeeper directory
   shell: 'mv /opt/apache-zookeeper-3.8.0-bin /opt/zookeeper'
 
+# Register the variable remote_file with the IPs of the Zookeeper nodes
 - name: slurp file
   command: cat /tmp/ips
   register: remote_file
-  
+
+# Loop through remote_file
 - name: readloop
   debug: 
     msg: "{{ item }}"
