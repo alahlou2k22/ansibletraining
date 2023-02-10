@@ -38,7 +38,7 @@
     path: /data/zookeeper
     state: directory
     owner: "{{morpheus['customOptions']['fzookeeperUser']}}"
-    group: zookeeper
+    group: "{{morpheus['customOptions']['fzookeeperGroup']}}"
 
 # Download and extract Zookeeper binaries
 - name: download zookeeper source
